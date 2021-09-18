@@ -85,6 +85,7 @@ namespace ConsoleUploader
                     }
                     if (!string.IsNullOrWhiteSpace(mimeType))
                     {
+                        _extensionMimeTypeCache.TryAdd(extension, mimeType);
                         _logger.LogDebug("Mime type for file {file} is {mimeType}", file, mimeType);
                         await using var fs = File.OpenRead(file);
                         await _googleDrive.UploadFile(fs, Path.GetFileName(file), mimeType, options.ParentDirectory, string.Empty);
